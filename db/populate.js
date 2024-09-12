@@ -1,9 +1,9 @@
 const { Client } = require("pg");
 require("dotenv").config();
 
-const SQL = `CREATE TABLE IF NOT EXISTS USERS (user_id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY, firstname VARCHAR(50), lastname VARCHAR(50), password TEXT NOT NULL,is_admin BOOLEAN DEFAULT FALSE,is_member BOOLEAN DEFAULT FALSE );
+const SQL = `CREATE TABLE IF NOT EXISTS USERS (user_id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY, email VARCHAR(100), firstname VARCHAR(50), lastname VARCHAR(50), password TEXT NOT NULL,is_admin BOOLEAN DEFAULT FALSE,is_member BOOLEAN DEFAULT FALSE );
 
-CREATE TABLE IF NOT EXISTS messages ( message_id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY, title VARCHAR(100), post_content VARCHAR(2000), added TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+CREATE TABLE IF NOT EXISTS messages ( message_id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY, title VARCHAR(100), post_content VARCHAR(2000), added TIMESTAMP DEFAULT CURRENT_TIMESTAMP, user_id INT REFERENCES users(user_id)
 );
 
 CREATE TABLE IF NOT EXISTS "session" (
@@ -14,7 +14,9 @@ CREATE TABLE IF NOT EXISTS "session" (
 
 ALTER TABLE "session" ADD CONSTRAINT "session_pkey" PRIMARY KEY ("sid") NOT DEFERRABLE INITIALLY IMMEDIATE;
 
-CREATE INDEX "IDX_session_expire" ON "session" ("expire");`;
+CREATE INDEX "IDX_session_expire" ON "session" ("expire");
+
+INSERT INTO users(email, firstname, lastname, password, is_admin, is_member) VALUES ('mail@mail.com','Johnny','Rotten', 'password',true, true)`;
 
 async function main() {
 	console.log("Starting database seeding process");

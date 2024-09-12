@@ -1,10 +1,18 @@
+const db = require("../db/queries");
 showHome = async (req, res) => {
 	try {
+		const messages = await db.getAllMessages();
+		if (req.session.viewCount) {
+			req.session.viewCount++;
+		} else {
+			req.session.viewCount = 1;
+		}
 		await res.render("index", {
-			user: false,
+			user: req.user,
+			messages: messages,
 		});
 	} catch (err) {
-		console.log(err);
+		console.error(err);
 	}
 };
 

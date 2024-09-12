@@ -6,5 +6,3 @@ module.exports = new Pool({
 	password: process.env.password,
 	port: process.env.dbport,
 });
-
-console.log(Pool);

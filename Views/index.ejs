@@ -7,17 +7,52 @@
 	</head>
 	<body>
 		<% if (user) {%>
+		<a href="/logout">Logout</a>
 		<h1>Hey <%= user.firstname %></h1>
 		<p>How you doing today</p>
-		<%} else {%>
-		<h1>hey You better login using the form below to view messages</h1>
-		<form action="/log-in" method="POST">
-			<label for="username">Username</label>
-			<input id="username" name="username" placeholder="username" type="text" />
+		<% messages.forEach(message => { %>
+		<div class="message-card">
+			<div class="card-header">
+				<div class="card-title-wrapper">
+					<h3><%= message.title %></h3>
+					<p>By <%=message.firstname%> <%=message.lastname%></p>
+				</div>
+				<div class="tags-wrapper">
+					<% if(message.is_admin) { %>
+					<p>Admin</p>
+					<% } %> <% if(message.is_member) { %>
+					<p>Member</p>
+					<% } %>
+				</div>
+			</div>
+			<div class="card-body">
+				<p><%= message.post_content %></p>
+			</div>
+		</div>
+		<% }) %> <%} else {%>
+		<h1>
+			hey You better login using the form below to view all message details
+		</h1>
+		<form action="/login" method="POST">
+			<label for="email">Email</label>
+			<input id="email" name="email" placeholder="Email" type="text" />
 			<label for="password">Password</label>
 			<input id="password" name="password" type="password" />
 			<button>Log In</button>
 		</form>
-		<%}%>
+		<% messages.forEach(message => { %>
+		<div class="message-card">
+			<div class="card-header">
+				<div class="card-title-wrapper">
+					<h3><%= message.title %></h3>
+					<p>By Anonymous</p>
+				</div>
+				<div class="tags-wrapper"></div>
+			</div>
+			<div class="card-body">
+				<p><%= message.post_content %></p>
+			</div>
+		</div>
+		<% }) %> <% } %>
 	</body>
 </html>
