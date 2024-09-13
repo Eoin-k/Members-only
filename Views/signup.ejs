@@ -3,31 +3,36 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="/index.css" />
 		<title>Sign up to members only</title>
 	</head>
 	<body>
-		<h1>Hi there this is the signup page</h1>
-		<form action="/sign-up" method="POST">
-			<label for="firstname">First Name:</label>
-			<input
-				id="firstname"
-				name="firstname"
-				placeholder="first name"
-				type="text"
-			/>
-			<input
-				id="lastname"
-				name="lastname"
-				placeholder="Last name"
-				type="text"
-			/>
-			<label for="email"
-				>Email
-				<input name="email" id="email" type="email" />
-			</label>
-			<label for="password">Password</label>
-			<input id="password" name="password" type="password" />
-			<button type="submit">Register</button>
-		</form>
+		<%- include("partials/header.ejs") %>
+		<div class="welcome-wrapper">
+			<h1>Hi there this is the signup page</h1>
+			<form action="/sign-up" method="POST">
+				<label for="firstname">First Name:</label>
+				<input
+					id="firstname"
+					name="firstname"
+					placeholder="first name"
+					type="text"
+				/>
+				<input
+					id="lastname"
+					name="lastname"
+					placeholder="Last name"
+					type="text"
+				/>
+				<label for="email"
+					>Email
+					<input name="email" id="email" type="email" />
+				</label>
+				<label for="password">Password</label>
+				<input id="password" name="password" type="password" />
+				<button type="submit">Register</button>
+			</form>
+		</div>
+		<%- include("partials/footer.ejs") %>
 	</body>
 </html>

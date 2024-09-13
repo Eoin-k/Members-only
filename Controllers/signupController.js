@@ -1,8 +1,11 @@
 const passwordUtils = require("../Utilities/passwordUtils");
 const db = require("../db/queries");
+
 showRegistration = async (req, res) => {
 	try {
-		res.render("signup");
+		res.render("signup", {
+			user: req.user,
+		});
 	} catch (err) {
 		console.error(err);
 	}

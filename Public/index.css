@@ -1,0 +1,162 @@
+* {
+	box-sizing: border-box;
+	margin: 0;
+}
+
+body {
+	display: flex;
+	flex-direction: column;
+	height: 100dvh;
+}
+
+.container {
+	display: flex;
+	flex-direction: column;
+	margin: 0 auto;
+	max-width: 1280px;
+	width: 100%;
+}
+
+.header {
+	display: flex;
+	flex-direction: row;
+	color: white;
+	text-align: center;
+	background-color: rgb(19, 17, 37);
+	padding: 1rem;
+}
+
+.heading-container {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-evenly;
+	align-items: center;
+}
+
+.heading-wrapper > h1 > a,
+.heading-wrapper > h1 > a:visited {
+	text-decoration: none;
+	color: white;
+}
+
+.login-wrapper {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	gap: 1rem;
+}
+
+.btn-primary {
+	padding-block: 0.75em;
+	padding-inline: 0.9em;
+	color: white;
+	background-color: rgb(54, 157, 247);
+	border-radius: 1em;
+}
+
+.btn-delete {
+	padding-block: 0.75em;
+	padding-inline: 0.9em;
+	color: white;
+	background-color: rgb(247, 54, 54);
+	border-radius: 1em;
+	cursor: pointer;
+}
+
+.delete-wrapper {
+	margin: 1rem 0;
+}
+
+.welcome-wrapper {
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+	padding: 1rem;
+	align-self: center;
+	text-align: center;
+}
+
+.cards-wrapper {
+	padding-block: 1rem;
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	max-width: 762px;
+	margin: 2rem auto 0 auto;
+	overflow-y: scroll;
+	scrollbar-width: none;
+	height: 70vh;
+	gap: 1.5rem;
+	box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+		rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+}
+
+.message-card {
+	display: flex;
+	flex-direction: column;
+	border-radius: 0.5em;
+	padding: 1rem;
+	width: 100%;
+	max-width: 500px;
+	gap: 1rem;
+	align-self: center;
+	box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+		rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+}
+
+.card-header {
+	display: flex;
+	justify-content: space-between;
+}
+
+.card-title-wrapper {
+	display: flex;
+	flex-direction: column;
+}
+
+.tags-wrapper {
+	display: flex;
+	gap: 1rem;
+}
+
+.card-body {
+	display: flex;
+	width: 100%;
+	word-wrap: break-word !important;
+}
+
+[data-role="admin"] {
+	display: flex;
+	height: fit-content;
+	padding: 0.5em;
+	background-color: blueviolet;
+	color: white;
+	border-radius: 0.6em;
+}
+
+[data-role="member"] {
+	display: flex;
+	height: fit-content;
+	padding: 0.5em;
+	background-color: rgb(76, 214, 85);
+	color: white;
+	border-radius: 0.6em;
+}
+.footer {
+	display: flex;
+	flex-direction: row;
+	color: white;
+	text-align: center;
+	background-color: rgb(19, 17, 37);
+	padding: 1rem;
+	margin-top: auto !important;
+}
+
+.footer-inner-wrapper {
+	display: flex;
+	flex-direction: row;
+	gap: 2rem;
+	width: 100%;
+	align-items: center;
+	justify-content: center;
+}

@@ -1,0 +1,16 @@
+<div class="header">
+	<div class="heading-container container">
+		<div class="heading-wrapper">
+			<h1><a href="/">Members Only</a></h1>
+		</div>
+		<div class="login-wrapper">
+			<% if (user) { %>
+			<a href="/logout" class="btn-primary">Log Out</a>
+			<%} else {%>
+			<a href="/sign-up" class="btn-primary">Sign up</a>
+			<p>or</p>
+			<a href="/login" class="btn-primary">Log In</a>
+			<% } %>
+		</div>
+	</div>
+</div>

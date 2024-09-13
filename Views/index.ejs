@@ -3,21 +3,12 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="/index.css" />
 		<title>Member Only Messaging</title>
 	</head>
 	<body>
-		<div class="header">
-			<h1>Members Only</h1>
-			<div class="login-wrapper">
-				<% if (user) { %>
-				<a href="/logout" class="btn-primary">Log Out</a>
-				<%} else {%>
-				<a href="/sign-up" class="btn-primary">Sign up</a>
-				<a href="/login" class="btn-primary">log In</a>
-				<% } %>
-			</div>
-		</div>
-		<div class="main-wrapper">
+		<%- include("partials/header.ejs") %>
+		<div class="main-wrapper container">
 			<% if (user) {%>
 			<div class="welcome-wrapper">
 				<h1>Hey <%= user.firstname %></h1>
@@ -25,6 +16,7 @@
 				<% if (user.is_member) { %>
 				<button id="addpost">Add Post</button>
 				<% } %>
+				<h3>Member Messages:</h3>
 			</div>
 			<div class="cards-wrapper">
 				<% messages.forEach(message => { %>
@@ -37,12 +29,6 @@
 							<p>By: You</p>
 							<% } else { %>
 							<p>By: <%= message.firstname%> <%= message.lastname%></p>
-							<% } %> <% if (user.is_admin) { %>
-							<div class="delete-wrapper">
-								<a id="<%= message.message_id %>" class="deletebtn btn-delete">
-									Delete post
-								</a>
-							</div>
 							<% } %>
 						</div>
 						<div class="tags-wrapper">
@@ -56,12 +42,22 @@
 					<div class="card-body">
 						<p><%= message.post_content %></p>
 					</div>
+					<% if (user.is_admin) { %>
+					<div class="delete-wrapper">
+						<a id="<%= message.message_id %>" class="deletebtn btn-delete">
+							Delete post
+						</a>
+					</div>
+					<% } %>
 				</div>
 
 				<% }) %>
 			</div>
 			<%} else {%>
-			<h2>Login to see all post details</h2>
+			<div class="welcome-wrapper">
+				<h2>Login to see all post details</h2>
+				<h3>Member Messages:</h3>
+			</div>
 			<div class="cards-wrapper">
 				<% messages.forEach(message => { %>
 				<div class="message-card">
@@ -85,6 +81,7 @@
 				<% }) %> <% } %>
 			</div>
 		</div>
+		<%- include("partials/footer.ejs") %>
 		<dialog id="postdialog">
 			<h3>Create new post:</h3>
 			<form action="/createmessage" method="POST">

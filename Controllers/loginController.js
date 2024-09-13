@@ -1,7 +1,8 @@
-const db = require("../db/queries");
 showLogin = async (req, res) => {
 	try {
-		res.render("login");
+		res.render("login", {
+			user: req.user,
+		});
 	} catch (err) {
 		console.error(err);
 	}
