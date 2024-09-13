@@ -10,6 +10,22 @@
 		<a href="/logout">Logout</a>
 		<h1>Hey <%= user.firstname %></h1>
 		<p>How you doing today</p>
+		<form action="/createmessage" method="POST">
+			<label for="title">
+				<p>Post title</p>
+				<input id="title" name="title" type="text" />
+				<label for="post_content">
+					<p>Post content:</p>
+					<textarea
+						cols="20"
+						rows="8"
+						name="post_content"
+						id="post_content"
+					></textarea>
+				</label>
+			</label>
+			<button type="submit">Submit Post</button>
+		</form>
 		<% messages.forEach(message => { %>
 		<div class="message-card">
 			<div class="card-header">

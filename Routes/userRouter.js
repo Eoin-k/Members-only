@@ -15,7 +15,7 @@ userRouter.get("/logout", (req, res, next) => {
 	});
 	res.redirect("/");
 });
-userRouter.post("/sign-up", signupController.registerUser);
+
 userRouter.post(
 	"/login",
 	passport.authenticate("local", {
@@ -26,5 +26,6 @@ userRouter.post(
 		res.redirect("/login");
 	}),
 );
+userRouter.post("/sign-up", signupController.registerUser);
 
 module.exports = userRouter;

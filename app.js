@@ -5,8 +5,7 @@ const express = require("express");
 const session = require("express-session");
 const pgSession = require("connect-pg-simple")(session);
 const port = process.env.port;
-const passwordUtils = require("./Utilities/passwordUtils");
-const mainRouter = require("./Routes/mainRouter");
+const mainRouter = require("./Routes/messageRouter");
 const userRouter = require("./Routes/userRouter");
 const pool = require("./db/pool");
 const passport = require("passport");
@@ -16,6 +15,7 @@ const app = express();
 app.set("views, __dirname");
 app.set("view engine", "ejs");
 app.use(express.static(assetspath));
+
 app.use(
 	session({
 		store: new pgSession({
@@ -28,14 +28,7 @@ app.use(
 	}),
 );
 
-app.use((req, res, next) => {
-	res.locals.currentUser = req.user;
-	next();
-});
-
 app.use(express.urlencoded({ extended: false }));
-//passport config
-
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(mainRouter);

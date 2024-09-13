@@ -1,5 +1,6 @@
 const { Client } = require("pg");
 require("dotenv").config();
+const passwordUtils = require("../Utilities/passwordUtils");
 
 const SQL = `CREATE TABLE IF NOT EXISTS USERS (user_id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY, email VARCHAR(100), firstname VARCHAR(50), lastname VARCHAR(50), password TEXT NOT NULL,is_admin BOOLEAN DEFAULT FALSE,is_member BOOLEAN DEFAULT FALSE );
 
@@ -16,7 +17,9 @@ ALTER TABLE "session" ADD CONSTRAINT "session_pkey" PRIMARY KEY ("sid") NOT DEFE
 
 CREATE INDEX "IDX_session_expire" ON "session" ("expire");
 
-INSERT INTO users(email, firstname, lastname, password, is_admin, is_member) VALUES ('mail@mail.com','Johnny','Rotten', 'password',true, true)`;
+INSERT INTO users(email, firstname, lastname, password, is_admin, is_member) VALUES ('mail@mail.com','Johnny','Rotten', ${passwordUtils.generatePassword(
+	process.env.userpassword,
+)},true, true)`;
 
 async function main() {
 	console.log("Starting database seeding process");
