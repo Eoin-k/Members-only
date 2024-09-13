@@ -13,6 +13,7 @@
 			<div class="welcome-wrapper">
 				<h1>Hey <%= user.firstname %></h1>
 				<p>How you doing today</p>
+				<p><%- include("partials/errors.ejs") %></p>
 				<% if (user.is_member) { %>
 				<button id="addpost">Add Post</button>
 				<% } %>
