@@ -2,7 +2,6 @@ const db = require("../db/queries");
 showHome = async (req, res) => {
 	try {
 		const messages = await db.getAllMessages();
-		console.log(req.user);
 		await res.render("index", {
 			user: req.user,
 			messages: messages,
@@ -22,7 +21,24 @@ createMessage = async (req, res) => {
 	} catch (err) {}
 };
 
+deleteMessage = async (req, res) => {
+	try {
+		const user = req.user || "";
+		const id = req.params.id;
+		if (user.is_admin) {
+			await db.deleteMessage(id);
+			res.redirect("/");
+		} else {
+			console.log("No delete permission");
+			res.redirect("/");
+		}
+	} catch (err) {
+		console.error(err);
+	}
+};
+
 module.exports = {
 	showHome,
 	createMessage,
+	deleteMessage,
 };

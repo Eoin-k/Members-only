@@ -6,69 +6,107 @@
 		<title>Member Only Messaging</title>
 	</head>
 	<body>
-		<% if (user) {%>
-		<a href="/logout">Logout</a>
-		<h1>Hey <%= user.firstname %></h1>
-		<p>How you doing today</p>
-		<form action="/createmessage" method="POST">
-			<label for="title">
-				<p>Post title</p>
-				<input id="title" name="title" type="text" />
-				<label for="post_content">
-					<p>Post content:</p>
-					<textarea
-						cols="20"
-						rows="8"
-						name="post_content"
-						id="post_content"
-					></textarea>
+		<div class="header">
+			<h1>Members Only</h1>
+			<div class="login-wrapper">
+				<% if (user) { %>
+				<a href="/logout" class="btn-primary">Log Out</a>
+				<%} else {%>
+				<a href="/sign-up" class="btn-primary">Sign up</a>
+				<a href="/login" class="btn-primary">log In</a>
+				<% } %>
+			</div>
+		</div>
+		<div class="main-wrapper">
+			<% if (user) {%>
+			<div class="welcome-wrapper">
+				<h1>Hey <%= user.firstname %></h1>
+				<p>How you doing today</p>
+				<% if (user.is_member) { %>
+				<button id="addpost">Add Post</button>
+				<% } %>
+			</div>
+			<div class="cards-wrapper">
+				<% messages.forEach(message => { %>
+				<div class="message-card">
+					<div class="card-header">
+						<div class="card-title-wrapper">
+							<h3><%= message.title %></h3>
+							<% if(message.firstname === user.firstname && message.lastname ===
+							user.lastname) { %>
+							<p>By: You</p>
+							<% } else { %>
+							<p>By: <%= message.firstname%> <%= message.lastname%></p>
+							<% } %> <% if (user.is_admin) { %>
+							<div class="delete-wrapper">
+								<a id="<%= message.message_id %>" class="deletebtn btn-delete">
+									Delete post
+								</a>
+							</div>
+							<% } %>
+						</div>
+						<div class="tags-wrapper">
+							<% if(message.is_admin) { %>
+							<p data-role="admin">Admin</p>
+							<% } %> <% if(message.is_member) { %>
+							<p data-role="member">Member</p>
+							<% } %>
+						</div>
+					</div>
+					<div class="card-body">
+						<p><%= message.post_content %></p>
+					</div>
+				</div>
+
+				<% }) %>
+			</div>
+			<%} else {%>
+			<h2>Login to see all post details</h2>
+			<div class="cards-wrapper">
+				<% messages.forEach(message => { %>
+				<div class="message-card">
+					<div class="card-header">
+						<div class="card-title-wrapper">
+							<h3><%= message.title %></h3>
+							<p>By: Anonymous</p>
+						</div>
+						<div class="tags-wrapper">
+							<% if(message.is_admin) { %>
+							<p data-role="admin">Admin</p>
+							<% } %> <% if(message.is_member) { %>
+							<p data-role="member">Member</p>
+							<% } %>
+						</div>
+					</div>
+					<div class="card-body">
+						<p><%= message.post_content %></p>
+					</div>
+				</div>
+				<% }) %> <% } %>
+			</div>
+		</div>
+		<dialog id="postdialog">
+			<h3>Create new post:</h3>
+			<form action="/createmessage" method="POST">
+				<label for="title">
+					<p>Post title</p>
+					<input id="title" name="title" type="text" />
+					<label for="post_content">
+						<p>Post content:</p>
+						<textarea
+							cols="20"
+							rows="8"
+							name="post_content"
+							id="post_content"
+						></textarea>
+					</label>
 				</label>
-			</label>
-			<button type="submit">Submit Post</button>
-		</form>
-		<% messages.forEach(message => { %>
-		<div class="message-card">
-			<div class="card-header">
-				<div class="card-title-wrapper">
-					<h3><%= message.title %></h3>
-					<p>By <%=message.firstname%> <%=message.lastname%></p>
-				</div>
-				<div class="tags-wrapper">
-					<% if(message.is_admin) { %>
-					<p>Admin</p>
-					<% } %> <% if(message.is_member) { %>
-					<p>Member</p>
-					<% } %>
-				</div>
-			</div>
-			<div class="card-body">
-				<p><%= message.post_content %></p>
-			</div>
-		</div>
-		<% }) %> <%} else {%>
-		<h1>
-			hey You better login using the form below to view all message details
-		</h1>
-		<form action="/login" method="POST">
-			<label for="email">Email</label>
-			<input id="email" name="email" placeholder="Email" type="text" />
-			<label for="password">Password</label>
-			<input id="password" name="password" type="password" />
-			<button>Log In</button>
-		</form>
-		<% messages.forEach(message => { %>
-		<div class="message-card">
-			<div class="card-header">
-				<div class="card-title-wrapper">
-					<h3><%= message.title %></h3>
-					<p>By Anonymous</p>
-				</div>
-				<div class="tags-wrapper"></div>
-			</div>
-			<div class="card-body">
-				<p><%= message.post_content %></p>
-			</div>
-		</div>
-		<% }) %> <% } %>
+				<button type="submit">Submit Post</button>
+				<button id="closebutton">Close Modal</button>
+			</form>
+		</dialog>
+		<% if(user) { %>
+		<script src="/jsHelpers.js"></script>
+		<% } %>
 	</body>
 </html>

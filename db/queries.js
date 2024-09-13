@@ -2,7 +2,7 @@ const pool = require("./pool.js");
 
 async function getAllMessages() {
 	const messages = await pool.query(
-		"SELECT messages.title, messages.post_content, users.firstname, users.lastname, users.is_admin, users.is_member FROM messages JOIN users ON messages.user_id = users.user_id;",
+		"SELECT messages.message_id, messages.title, messages.post_content, users.firstname, users.lastname, users.is_admin, users.is_member FROM messages JOIN users ON messages.user_id = users.user_id;",
 	);
 	return messages.rows;
 }
@@ -25,8 +25,14 @@ async function addNewMessage(title, post_content, user_id) {
 	);
 }
 
+async function deleteMessage(id) {
+	await pool.query("DELETE FROM messages WHERE message_id = $1", [id]);
+	console.log("Message Deleted");
+}
+
 module.exports = {
 	getAllMessages,
 	addNewUser,
 	addNewMessage,
+	deleteMessage,
 };
