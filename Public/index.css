@@ -7,6 +7,27 @@ body {
 	display: flex;
 	flex-direction: column;
 	height: 100dvh;
+	font-family: "Outfit";
+}
+
+dialog {
+	position: absolute;
+	left: 42.5%;
+	top: 30%;
+	min-width: 20rem;
+}
+
+form {
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+	margin-top: 1rem;
+}
+
+label {
+	display: flex;
+	flex-direction: column;
+	gap: 0.75rem;
 }
 
 .container {
