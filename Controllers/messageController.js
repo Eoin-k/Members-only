@@ -2,6 +2,7 @@ const db = require("../db/queries");
 showHome = async (req, res) => {
 	try {
 		const messages = await db.getAllMessages();
+		console.log(req.user);
 		await res.render("index", {
 			user: req.user,
 			messages: messages,
@@ -12,11 +13,11 @@ showHome = async (req, res) => {
 };
 
 createMessage = async (req, res) => {
+	const title = req.body.title;
+	const postContent = req.body.post_content;
+	const userId = req.user.user_id;
 	try {
-		console.log(`Post Title: ${req.body.title}
-			Post Content: ${req.body.post_content}
-			User: ${req.user.firstname}
-			ID: ${req.user.user_id}`);
+		await db.addNewMessage(title, postContent, userId);
 		res.redirect("/");
 	} catch (err) {}
 };
